@@ -19,9 +19,10 @@ recursive local functions) |#
 (define y 2)
 (let ([x y] [y x])(cons x y)) ; reverse x and y just for its body
 
-#| ??
 (define (sum x)
 (let sum-help ([x x] [res 0])
 (cond [(= x 0) res]
 [else (sum-help (sub1 x) (+ res x))])))
-|#
+#| We can set name for a let statement. 
+so we have a internal function and we can call it in itself recursive.
+and when we call it in itself we must set its arguments but the first time we have initial values. #|
