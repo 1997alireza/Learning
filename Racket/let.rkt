@@ -25,4 +25,4 @@ recursive local functions) |#
 [else (sum-help (sub1 x) (+ res x))])))
 #| We can set name for a let statement. 
 so we have a internal function and we can call it in itself recursive.
-and when we call it in itself we must set its arguments but the first time we have initial values. #|
+and when we call it in itself we must set its arguments but the first time we have initial values. |#
