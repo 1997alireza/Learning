@@ -1,4 +1,4 @@
-from math import exp
+import numpy
 
 
 def fixed_function(b):
@@ -9,12 +9,12 @@ def linear_function(m, w, b):
     return m*w + b
 
 
-def nn_function(m1, m2, w1, w2, b):
-    return sigmoid(m1*w1 + m2*w2 + b)
-
-
 def sigmoid(x):
-    return 1 / (1 + exp(-x))
+    return 1 / (1 + numpy.exp(-x))
+
+
+def sigmoid_derivation(x):
+    return sigmoid(x) * (1 - sigmoid(x))
 
 
 def cost(prediction, target):
