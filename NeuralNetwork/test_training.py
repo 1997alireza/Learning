@@ -11,6 +11,7 @@ def test_linear_regression():
     c = 0
     for i, mi in enumerate(m):
         c += cost(linear_function(mi, w, b), t[i])
+    c /= len(m)
     print('linear function: w = {0}, b = {1}'.format(w, b), ' cost =', c, '\n')
 
     # training loop
@@ -21,6 +22,7 @@ def test_linear_regression():
         c = 0
         for i, mi in enumerate(m):
             c += cost(linear_function(mi, w, b), t[i])
+        c /= len(m)
         print('linear function: w = {0}, b = {1}'.format(w, b), ' cost =', c, '\n')
 
 

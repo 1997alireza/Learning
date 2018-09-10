@@ -44,10 +44,11 @@ if __name__ == '__main__':
     c = 0
     for point in points:
         c += cost(nn_function(point[0], point[1], w1, w2, b), point[2])
+    c /= len(points)
     print('function: w1 = {0}, w2 = {1}, b = {2}'.format(w1, w2, b), ' cost =', c, '\n')
 
     # training loop
-    for _ in range(5000):
+    for r in range(50000):
         w1_s, w2_s, b_s = cost_slop_nn(points, w1, w2, b)
         w1 -= .01 * w1_s
         w2 -= .01 * w2_s
@@ -55,7 +56,9 @@ if __name__ == '__main__':
         c = 0
         for point in points:
             c += cost(nn_function(point[0], point[1], w1, w2, b), point[2])
-        print('function: w1 = {0}, w2 = {1}, b = {2}'.format(w1, w2, b), ' cost =', c, '\n')
+        c /= len(points)
+        if r % 1000 == 0:
+            print('function: w1 = {0}, w2 = {1}, b = {2}'.format(w1, w2, b), ' cost =', c, '\n')
 
     # test
     answer = nn_function(mystery[0], mystery[1], w1, w2, b)
