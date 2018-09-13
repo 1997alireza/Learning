@@ -11,5 +11,4 @@ x = tf.placeholder(tf.float32, (100, 748))
 h = tf.nn.relu(tf.matmul(x, w) + b)
 sess.run(tf.global_variables_initializer())
 print(sess.run(h, {x: np.random.random_sample((100, 748))}))
-
 sess.close()
