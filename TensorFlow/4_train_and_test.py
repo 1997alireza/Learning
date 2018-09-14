@@ -38,4 +38,5 @@ for i in range(1000):
         sess.run([cost, train_op], feed_dict={m1: point[0], m2: point[1], label: point[2]})
 print(sess.run(prediction, feed_dict={m1: points[0][0], m2: points[0][1]}))
 # it returns between 0.99999 and 1
+
 sess.close()
