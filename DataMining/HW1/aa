@@ -1,0 +1,65 @@
+# d
+print('===================== 4-d =====================\n')
+print('Mean vector: ', np.mean(data, axis=0))
+print('Variance vector: ', np.var(data, axis=0))
+plt.show()
+print('\n===============================================\n')
+
+# e
+print('===================== 4-e =====================\n')
+
+print('Covariance Matrix :\n')
+cov01 = np.cov(x[:, 0], x[:, 1])
+print(cov01)
+print('\n===============================================\n')
+
+# f
+print('===================== 4-f =====================\n')
+
+print('Correlate Matrix :\n')
+print(np.correlate(x[:, 0], x[:, 1]))
+print(cov01 / np.linalg.norm(cov01))
+print(cov01 / np.var(x[:, 0])**.5 / np.var(x[:, 1]**.5))
+print('\n===============================================\n')
+
+
+
+--
+
+import numpy as np
+
+
+LEARNING_RATE = 1e-4
+
+
+def gradient_decent_unit(x, y, beta):
+    # gradient of any quadratic function, such as our cost function
+    grad = np.matmul(x.T, (np.matmul(x, beta) - y))
+    norm = np.linalg.norm(grad)
+    if norm == 0:
+        return grad, True
+    return grad / norm, False
+
+
+def lr_batch(x, y):
+    beta = np.random.normal(.5, .5, (x.shape[1],))
+
+    for _ in range(100000):
+        grad, stop = gradient_decent_unit(x, y, beta)
+        if stop:
+            return beta
+        beta -= LEARNING_RATE * grad
+    return beta
+
+
+if __name__ == '__main__':
+    data = np.load('data.npz')
+    x1 = np.array(data['x1'])
+    x2 = np.array(data['x2'])
+    y = np.array(data['y'])
+
+    x = np.zeros((x1.shape[0], 3))
+    x[:, 0] = np.ones((x1.shape[0]))
+    x[:, 1] = x1
+    x[:, 2] = x2
+    print(lr_batch(x, y))
