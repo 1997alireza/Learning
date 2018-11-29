@@ -4,7 +4,7 @@ msg = b'If you want to keep a secret, you must also hide it from yourself'
 m_sha256_hex = hashlib.sha256(msg).digest()
 m_md5_hex = hashlib.md5(msg).digest()
 
-remove_index = 7
+remove_index = 0
 edited_msg = msg[:remove_index] + msg[remove_index+1: len(msg)]
 
 me_sha256_hex = hashlib.sha256(edited_msg).digest()

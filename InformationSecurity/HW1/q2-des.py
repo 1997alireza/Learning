@@ -1,4 +1,5 @@
 import pyDes
+import struct
 
 
 def int_to_bytes(value, length):
@@ -18,3 +19,4 @@ key = int_to_bytes(0x133457799BBCDFF1, 8)
 des = pyDes.des(key)
 m_des_hex = des.encrypt(msg)
 print(m_des_hex.hex())
+
