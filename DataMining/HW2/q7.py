@@ -12,7 +12,7 @@ def train_error_on_KNN(k):
     y_pred_on_train = classifier.predict(x_train)
 
     err = norm2_error(y_train, y_pred_on_train)
-    print('Error for {}NN classifier on train: '.format(k), err)
+    print('Error for {}NN classifier on train (euclidean distance): '.format(k), err)
     return err
 
 
