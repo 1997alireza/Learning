@@ -7,3 +7,9 @@
 * Create new features
 * Class prediction by features
 * Calculate mean square error
+
+<!--### Homework two-->
+* KNN model
+* Decision tree model
+* Information gain
+* Pre-pruning
