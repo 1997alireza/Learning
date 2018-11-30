@@ -16,7 +16,7 @@ class Node:
     def get_total_data_size(self):
         return sum(len(c_data) for c_data in self.classes_data)
 
-    def get_best_class(self):
+    def __get_best_class(self):
         best_size = 0
         best_class = -1
         for c_iter, c_data in enumerate(self.classes_data):
@@ -27,9 +27,9 @@ class Node:
 
     def make_best_splitter(self):
         not_zero_classes = 0
-        if self.depth > MAX_DEPTH:
-            self.children = self.get_best_class()
-            return  # it's a terminal node
+        # if self.depth > MAX_DEPTH:
+        #     self.children = self.__get_best_class()
+        #     return  # it's a terminal node
 
         for c_iter, c_data in enumerate(self.classes_data):
             if len(c_data) != 0:
@@ -40,6 +40,7 @@ class Node:
                     not_zero_classes = 2
                     break
         if not_zero_classes < 2:
+            # print('--', self.depth)
             return  # it's a terminal node
 
         node_data_size = self.get_total_data_size()
@@ -81,8 +82,15 @@ class Node:
         for c_id in range(len(self.children)):
             self.children[c_id].make_best_splitter()
 
+    def get_class(self, x):
+        if self.feature_splitter_index == -1:
+            return self.children
+        x_f_value = x[self.feature_splitter_index]
+        child_index = self.feature_splitter_values.index(x_f_value)
+        return self.children[child_index].get_class(x)
 
-MAX_DEPTH = 700
+
+# MAX_DEPTH = 700
 
 
 if __name__ == '__main__':
@@ -100,10 +108,10 @@ if __name__ == '__main__':
         else:
             class1_data.append(x[i])
 
-    root = Node(class0_data, class1_data)
-    root.make_best_splitter()
-    print(root.feature_splitter_index)
-    print(root.feature_splitter_values)
-    print(root.children[0].feature_splitter_index)
-    print(root.children[0].feature_splitter_values)
+    decision_tree_r = Node(class0_data, class1_data)
+    decision_tree_r.make_best_splitter()
+    ind = 28
+    ind -= 2
+    print(x[ind])
+    print(decision_tree_r.get_class(x[ind]))
 

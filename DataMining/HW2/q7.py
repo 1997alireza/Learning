@@ -1,8 +1,8 @@
-import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.neighbors import KNeighborsClassifier
+from tools import norm2_error
 
 
 def train_error_on_KNN(k):
@@ -11,10 +11,7 @@ def train_error_on_KNN(k):
 
     y_pred_on_train = classifier.predict(x_train)
 
-    np_y_train = np.array(y_train)
-    np_y_pred = np.array(y_pred_on_train)
-
-    err = np.linalg.norm(np_y_train - np_y_pred)
+    err = norm2_error(y_train, y_pred_on_train)
     print('Error for {}NN classifier on train: '.format(k), err)
     return err
 
