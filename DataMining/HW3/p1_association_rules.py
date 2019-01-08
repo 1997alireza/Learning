@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class ItemSet:
     items: {} = None
@@ -8,6 +9,7 @@ class ItemSet:
     def __init__(self, items, support):
         self.items = items
         self.support = support
+
 
 @dataclass
 class AssociationRule:
