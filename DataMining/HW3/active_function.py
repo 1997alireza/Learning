@@ -9,6 +9,7 @@ def tanh(x, derived=False):
 
 
 def softmax(x, derived=False):
+    sm = np.exp(x) / np.sum(np.exp(x), axis=0)
     if derived:
-        return 0  # TODO
-    return np.exp(x) / np.sum(np.exp(x), axis=0)
+        return sm * (1 - sm)
+    return sm
