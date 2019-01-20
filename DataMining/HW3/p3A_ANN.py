@@ -4,12 +4,6 @@ import pandas as pd
 
 
 class DrinksNN:
-    # using 2 hidden layers:
-        #  input layer: 13 neurons
-        #  1st hidden layer: 8 neurons
-        #  2nd hidden layer: 5 neurons
-        #  output layer: 3 neurons
-
     def __init__(self, layer_dim=None, h_active_function=tanh, o_active_function=softmax):
         """
 
@@ -18,6 +12,11 @@ class DrinksNN:
         """
         if layer_dim is None:
             layer_dim = [13, 8, 5, 3]
+            # using 2 hidden layers:
+            #  input layer: 13 neurons
+            #  1st hidden layer: 8 neurons
+            #  2nd hidden layer: 5 neurons
+            #  output layer: 3 neurons
         self.layer_dim = layer_dim
         self.h_active_function = h_active_function
         self.o_active_function = o_active_function
@@ -56,11 +55,11 @@ class DrinksNN:
             print('Accuracy on epoch {}: {}'.format(epoch, epoch_accuracy))
 
     def test(self, x):
+        assert type(x) == list and len(x) == self.layer_dim[0], 'invalid input'
         _, z = self._forward_propagation(x)
         return list(z[-1])
 
     def _forward_propagation(self, x):
-        assert type(x) == list and len(x) == self.layer_dim[0], 'invalid input'
         a = [np.array(x)]
         z = [np.array(a[0])]  # input layer has not active function
         for i in range(1, len(self.layer_dim)):
@@ -107,11 +106,11 @@ class DrinksNN:
 
 
 if __name__ == '__main__':
-    model = DrinksNN()
     dataset = pd.read_csv('datasets/Drinks.csv')
     features = dataset.iloc[:, :13].values.tolist()
     outputs = dataset.iloc[:, 13:].values.tolist()
 
+    model = DrinksNN()
     model.train(features, outputs)
 
     # print(model.test(features[10]))
