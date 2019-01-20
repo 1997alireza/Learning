@@ -1,5 +1,6 @@
 import numpy as np
 from active_function import *
+import pandas as pd
 
 
 class DrinksNN:
@@ -27,12 +28,12 @@ class DrinksNN:
         # self.w2 = np.random.rand(8, 5)
         # self.w3 = np.random.rand(5, 3)
 
-    def train(self, x_batch, y_batch, learning_rate=.7, epoch_num=10000):
+    def train(self, x_batch, y_batch, learning_rate=.7, epoch_num=100):
         assert type(x_batch) == type(y_batch) == list and len(x_batch) == len(y_batch) > 0 \
                and len(x_batch[0]) == self.layer_dim[0] and len(y_batch[0]) == self.layer_dim[-1], 'invalid input'
 
         for epoch in range(epoch_num):
-            error_sum = 0
+            accuracy_sum = 0
             for batch_num in range(len(x_batch)):
                 x = x_batch[batch_num]
                 y = y_batch[batch_num]
@@ -41,8 +42,8 @@ class DrinksNN:
                 predicted_y = z[-1]
                 expected_y = np.array(y)
 
-                delta, error = self._back_propagation(predicted_y, expected_y, a)
-                error_sum += error
+                delta, accuracy = self._back_propagation(predicted_y, expected_y, a)
+                accuracy_sum += accuracy
 
                 # update weights
                 for i in range(len(self.layer_dim)-1):
@@ -51,8 +52,8 @@ class DrinksNN:
                             dEdW = z[i][j] * delta[i+1][k]
                             self.w[i][j, k] -= learning_rate * dEdW
 
-            epoch_error = error_sum / len(x_batch[0])
-            print('Error on epoch {}: {}'.format(epoch, epoch_error))
+            epoch_accuracy = accuracy_sum / len(x_batch)
+            print('Accuracy on epoch {}: {}'.format(epoch, epoch_accuracy))
 
     def test(self, x):
         _, z = self._forward_propagation(x)
@@ -81,8 +82,13 @@ class DrinksNN:
         return a, z
 
     def _back_propagation(self, predicted_y, expected_y, a):
-        difference = predicted_y - expected_y
-        error = .5 * np.sum(difference * difference)
+        """
+
+        :param predicted_y:
+        :param expected_y:
+        :param a:
+        :return: delta (for back propagation) and accuracy for this single data
+        """
         delta = []  # delta[i][k] = d Error / d a[i][k]
         for i in range(0, len(self.layer_dim) - 1):
             delta.append(np.zeros(self.layer_dim[i]))
@@ -97,12 +103,22 @@ class DrinksNN:
                     sig += delta[i + 1][k] * self.w[i][j, k]
                 delta[i][j] = self.h_active_function(a[i][j]) * sig
 
-        return delta, error
+        return delta, np.argmax(predicted_y) == np.argmax(expected_y)
 
 
 if __name__ == '__main__':
     model = DrinksNN()
-    model.train([[1,2,3,4,5,6,7,8,9,10,11,12,13]], [[1,0,0]])
-    print(model.test([1,2,3,4,5,6,7,8,9,10,11,12,13]))
+    dataset = pd.read_csv('datasets/Drinks.csv')
+    features = dataset.iloc[:, :13].values.tolist()
+    outputs = dataset.iloc[:, 13:].values.tolist()
 
+    model.train(features, outputs)
 
+    # print(model.test(features[10]))
+    # print(outputs[10])
+    # print(model.test(features[120]))
+    # print(outputs[120])
+    # print(model.test(features[44]))
+    # print(outputs[44])
+    # print(model.test(features[160]))
+    # print(outputs[160])

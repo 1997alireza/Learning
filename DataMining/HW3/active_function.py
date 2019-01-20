@@ -11,5 +11,9 @@ def tanh(x, derived=False):
 def softmax(x, derived=False):
     sm = np.exp(x) / np.sum(np.exp(x), axis=0)
     if derived:
-        return sm * (1 - sm)
+        derived_vec = np.zeros(np.shape(x))
+        for i in range(len(derived_vec)):
+            for j in range(i, len(derived_vec)):
+                derived_vec[i] += sm[i] * (1 - sm[i]) if i == j else -sm[i] * sm[j]
+        return derived_vec
     return sm
