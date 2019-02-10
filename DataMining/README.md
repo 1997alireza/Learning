@@ -1,5 +1,8 @@
 # Data Mining Course Homeworks
 
+Under supervision of [Dr. Maryam Amirmazlaghani](http://ceit.aut.ac.ir/autcms/people/verticalPagesAjax/professorHomePage.htm?url=mazlaghani&depurl=computer-engineering&lang=en&cid=11875)
+
+
 ### \< Homework one >
 * Calculate covariance and correaltion
 * Find best feature that has the highest correlation with the class
