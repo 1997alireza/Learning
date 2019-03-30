@@ -1,1 +1,0 @@
-The [cses.fi](https://github.com/1997alireza/Learning/tree/master/AlgorithmDesign/cses.fi) folder contains the solutions for the problems in [this list](https://cses.fi/problemset/list/). These problems are based on the book [Guide to Competitive Programming](https://cses.fi/book.html).
