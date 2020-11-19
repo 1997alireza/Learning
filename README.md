@@ -1,4 +1,4 @@
-# Learning
+# Learning during my undergraduate studies
 <p align="center">
     <img src="https://github.com/1997alireza/Learning/blob/master/.splash.png">
 </p>
